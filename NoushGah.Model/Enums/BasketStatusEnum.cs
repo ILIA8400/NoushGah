@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NoushGah.Model
+namespace NoushGah.Model.Enums
 {
-    public class Category : BaseEntity
+    public enum BasketStatusEnum
     {
+        Reset = 0,
+        InProgress = 1,
     }
 }

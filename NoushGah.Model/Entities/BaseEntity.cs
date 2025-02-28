@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NoushGah.Model
+namespace NoushGah.Model.Entities
 {
     public abstract class BaseEntity
     {
