@@ -1,4 +1,5 @@
-﻿using NoushGah.Model.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using NoushGah.Model.Entities;
 using NoushGah.Model.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NoushGah.DataAccess.IdentityModel
 {
-    public class User
+    public class SystemUser : IdentityUser
     {
         public UserGenderEnum Gender { get; set; }
 

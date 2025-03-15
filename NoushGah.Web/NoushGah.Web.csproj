@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NoushGah.Business\NoushGah.Business.csproj" />
+    <ProjectReference Include="..\NoushGah.Common\NoushGah.Common.csproj" />
+    <ProjectReference Include="..\NoushGah.DataAccess\NoushGah.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

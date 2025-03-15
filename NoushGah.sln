@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Web", "01_Web", "{C30ABD7D-D974-4F33-BD6F-DC02BC6901D4}"
 EndProject
@@ -22,6 +22,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoushGah.Model", "NoushGah.Model\NoushGah.Model.csproj", "{453610F0-6EBF-4353-B13B-1F9894FA1B1D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoushGah.Web", "NoushGah.Web\NoushGah.Web.csproj", "{4A7846D2-60C1-489B-A0AE-0B6C564E3403}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{099D7E75-F1A9-42C8-8BEB-D48868184758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoushGah.Common", "NoushGah.Common\NoushGah.Common.csproj", "{4462B677-402C-47E3-AF5F-E7ED40514D72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{4A7846D2-60C1-489B-A0AE-0B6C564E3403}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A7846D2-60C1-489B-A0AE-0B6C564E3403}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A7846D2-60C1-489B-A0AE-0B6C564E3403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4462B677-402C-47E3-AF5F-E7ED40514D72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4462B677-402C-47E3-AF5F-E7ED40514D72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4462B677-402C-47E3-AF5F-E7ED40514D72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4462B677-402C-47E3-AF5F-E7ED40514D72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +67,6 @@ Global
 		{214B98EF-9379-4468-8E2D-77B9D0C0143C} = {A713EC8E-0AFB-405A-BCAF-114480CA08F4}
 		{453610F0-6EBF-4353-B13B-1F9894FA1B1D} = {68BF9D4C-601A-47CB-9F16-98DC1D979553}
 		{4A7846D2-60C1-489B-A0AE-0B6C564E3403} = {C30ABD7D-D974-4F33-BD6F-DC02BC6901D4}
+		{4462B677-402C-47E3-AF5F-E7ED40514D72} = {099D7E75-F1A9-42C8-8BEB-D48868184758}
 	EndGlobalSection
 EndGlobal
