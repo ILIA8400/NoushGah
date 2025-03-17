@@ -13,6 +13,9 @@ namespace NoushGah.Model.Entities
         public string Description { get; set; }
         public int CategoryId { get; set; }
         public decimal Price { get; set; }
+        public decimal Popularity { get; set; }
+        public bool IsSpecialOffer { get; set; }
+        public int ServingTime { get; set; }
 
         #region Navigations
 

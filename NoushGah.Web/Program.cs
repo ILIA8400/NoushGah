@@ -26,16 +26,21 @@ builder.Services.AddIdentity<SystemUser, IdentityRole>().AddEntityFrameworkStore
 
 // Add Services : I + ClassName
 #region Services
-var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-builder.Services.AddBusinessServices(assemblies); 
+
+var assemblies = new[]
+{
+    Assembly.Load("NoushGah.Business"),
+    Assembly.Load("NoushGah.Repositories")
+}; 
+
+builder.Services.AddBusinessServices(assemblies);
+
 #endregion
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
-
-app.UseHttpsRedirection();
-
+//app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
