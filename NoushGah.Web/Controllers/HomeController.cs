@@ -12,11 +12,24 @@ namespace NoushGah.Web.Controllers
             this.productBiz = productBiz;
         }
 
+        // صحفه اصلی
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "خانه";
             var model = await productBiz.GetHomeIndexDataAsync();
             return View(model);
+        }
+
+        // درباره ما
+        public Task<IActionResult> AboutUs()
+        {
+            return null;
+        }
+
+        // تماس با ما
+        public Task<IActionResult> ContactUs()
+        {
+            return null;
         }
     }
 }
