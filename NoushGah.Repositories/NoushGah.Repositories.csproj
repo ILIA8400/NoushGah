@@ -9,10 +9,12 @@
   <ItemGroup>
     <ProjectReference Include="..\NoushGah.Common\NoushGah.Common.csproj" />
     <ProjectReference Include="..\NoushGah.DataAccess\NoushGah.DataAccess.csproj" />
+    <ProjectReference Include="..\NoushGah.Model\NoushGah.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
 
 </Project>
