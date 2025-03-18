@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NoushGah.DataAccess;
 using NoushGah.DataAccess.IdentityModel;
-using NoushGah.Web.Infra;
+using NoushGah.Web.Extentions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

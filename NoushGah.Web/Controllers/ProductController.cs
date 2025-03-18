@@ -4,7 +4,9 @@ namespace NoushGah.Web.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Index()
+
+        // نمایش جزئیات محصول
+        public async Task<IActionResult> Details(int productId)
         {
             return View();
         }

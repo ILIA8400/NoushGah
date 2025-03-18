@@ -4,7 +4,9 @@ namespace NoushGah.Web.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
+
+        // پروفایل کاربر
+        public IActionResult Profile(string userId)
         {
             return View();
         }

@@ -17,7 +17,7 @@
  * preloader
  */
 (function ($) {
-  "use strict";
+    "use strict";
 
   /* show pass
   ------------------------------------------------------------------------------------- */
@@ -298,13 +298,13 @@
 
 
 
-if(window.location.pathname.includes('index.html')) {
-  var i = document.getElementById('a');
-  console.log(i)
-  if (i) {
-    i.classList.add('active');
-  }
+if (window.location.pathname === '/') {
+    var i = document.getElementById('a');
+    if (i) {
+        i.classList.add('active');
+    }
 }
+
 
 if(window.location.pathname.includes('nearby.html')) {
   var i = document.getElementById('b');
@@ -313,7 +313,7 @@ if(window.location.pathname.includes('nearby.html')) {
   }
 }
 
-if(window.location.pathname.includes('cart.html')) {
+if (window.location.pathname === '/Basket') {
   var i = document.getElementById('c');
   if (i) {
     i.classList.add('active');

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace NoushGah.Web.Infra
+namespace NoushGah.Web.Extentions
 {
     public static class ServiceRegistrationExtensions
     {

@@ -17,6 +17,7 @@ window.console =
         function () {};
     return e;
   })();
+
   $(document).ready(function () {
     var e =
       '<div class="menu-mobile-popup">' +
@@ -25,7 +26,7 @@ window.console =
       '<div class="header-ct-center menu-moblie">' +
       '<div class="sidebar-logo">' +
       '<img src="/Images/logo/logomenu.png">' +
-      "<h2>کافه مانستر</h2>" +
+      "<h2>نوشگاه</h2>" +
       "</div> " +
       '<ul id="menu-primary-menu" class="menu">' +
       '<li class="menu-item menu-item-has-children-mobile">' +
@@ -188,6 +189,12 @@ window.console =
       '<a href="order-track-04.html">پیگیری سفارش 04 </a>' +
       "</li>" +
       "</ul>" +
+      "</li>" +
+      `<li class="menu-item">` +
+      `<a href="" class="item-menu">درباره ما</a>` +
+      "</li>" +
+      `<li class="menu-item">` +
+      `<a href="" class="item-menu">تماس با ما</a>` +
       "</li>" +
       "</ul>" +
       "</div>" +
