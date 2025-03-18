@@ -9,7 +9,7 @@ namespace NoushGah.Model.Entities
     public class Invoice : BaseEntity
     {
         public decimal TotalAmount { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         #region Navigations
 

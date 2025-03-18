@@ -10,6 +10,6 @@ namespace NoushGah.Model.Entities
     public class Basket : BaseEntity
     {
         public BasketStatusEnum BasketStatus { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

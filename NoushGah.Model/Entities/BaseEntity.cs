@@ -11,8 +11,8 @@ namespace NoushGah.Model.Entities
         public virtual int Id { get; set; }
         public virtual DateTime? CreatedDate { get; set; }
         public virtual DateTime? UpdatedDate { get; set; }
-        public virtual int? CreatedUserId { get; set; }
-        public virtual int? UpdatedUserId { get; set; }
+        public virtual string? CreatedUserId { get; set; }
+        public virtual string? UpdatedUserId { get; set; }
         public virtual bool IsDeleted { get; set; }
 
     }
