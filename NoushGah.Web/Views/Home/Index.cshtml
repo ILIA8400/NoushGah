@@ -81,7 +81,7 @@
                                 <div class="swiper-slide ml-2">
                                     <div class="tf-box-column lg">
                                         <a href="product-details-1.html" class="img-box">
-                                            <img src="@Url.Content(item.ProductImages.FirstOrDefault()?.Path ?? "/Images/default.jpg")" alt="Product Image">
+                                            <img class="img-fluid" src="@Url.Content(item.ProductImages.FirstOrDefault()?.Path ?? "/Images/default.jpg")" alt="Product Image">
                                         </a>
                                         <div class="content-box">
                                             <h3><a href="product-details-1.html">@item.Name</a></h3>
@@ -97,7 +97,11 @@
                                             </ul>
                                             <div class="box-price">
                                                 <span class="price">@item.Price.ToString("N0") تومان</span>
-                                                <a href="cart.html" class="btn-add">+</a>
+                                                <a onclick="AddItemToBasket(@item.Id)" class="btn-add">+</a>
+@*                                                 <div style="display:flex; flex-direction:row; align-items:center; gap:15px;">
+                                                    <span class="fw-bold">1</span>
+                                                    <a href="cart.html" class="btn-add">+</a>
+                                                </div> *@
                                             </div>
                                         </div>
                                     </div>
@@ -235,7 +239,7 @@
                                                     <li class="accent">@item.Price.ToString("N0") تومان</li>
                                                     <li class="del">@accent.ToString("N0") تومان</li>
                                                 </ul>
-                                                <a href="cart.html" class="btn-add">+</a>
+                                                <a href="cart.html" class="btn-add" product-id="@item.Id">+</a>
                                             </div>
                                         </div>
                                     </div>
@@ -872,6 +876,22 @@
     <script type="text/javascript" src="~/Scripts/sidebar.js"></script>
     <script type="text/javascript" src="~/Scripts/main.js"></script>
 
-    <script>
+    <script type="text/javascript">
+
+        function AddItemToBasket(productId){
+            $.ajax({
+                type: "post",
+                url: "/Basket/AddItemToBasket",
+                data: {
+                    Count: 1,
+                    ProductId : productId
+                },
+                dataType: "json",
+                success: function (response) {
+                    //console.log(response)
+                }
+            });
+        }
+
     </script>
 </body>
