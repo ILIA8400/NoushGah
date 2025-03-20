@@ -14,6 +14,7 @@ namespace NoushGah.Repositories.Interfaces
         Task DeleteBasket(BasketWrapper basket);
         Task<BasketWrapper> GetBasket(int basketId);
         Task<BasketWrapper> GetBasketByUserId(string userId);
+        Task<List<BasketItemWrapper>> GetBasketItems(string userId);
         Task ClearBasket(string userId);
         Task AddItemToBasket(BasketItemWrapper item, string userId);
         Task AddItemsToBasket(List<BasketItemWrapper> basketItems, string userId);

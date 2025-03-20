@@ -1,4 +1,6 @@
-﻿
+﻿@using System.Globalization
+@model List<BasketItemWrapper>
+
 @{
     ViewBag.Title = "سبد خرید";
 }
@@ -7,7 +9,7 @@
 }
 
 <body>
-    
+
     <partial name="_Preload" />
 
     <div class="header">
@@ -26,33 +28,36 @@
     <div class="app pt-80 pb-70">
         <div class="tf-container">
             <ul>
-                <li class="tf-box-row style-2 qty mb-12">
-                    <a href="product-details-1.html" class="img-box">
-                        <img src="~/Images/food/coffea-16.jpg" alt="تصویر">
-                    </a>
-                    <div class="content-box">
-                        <h5><a href="product-details-1.html">قهوه شکلاتی یخ‌زده</a></h5>
-                        <ul class="review">
-                            <li>
-                                <i class="icon-star"></i>
-                                <span>4.8</span>&nbsp;
-                                (125)
-                            </li>
-                            <li class="dot-icon">
-                            </li>
-                            <li>16 دقیقه</li>
-                        </ul>
-                        <div class="total-qty">
-                            <span class="price">10.48 تومان</span>
-                            <div class="sec-qty">
-                                <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
-                                <input type="number" name="number" value="1">
-                                <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
+                @foreach(var item in Model){
+                    <li class="tf-box-row style-2 qty mb-12">
+                        <a href="product-details-1.html" class="img-box">
+                            <img src="@Url.Content(item.Product.ProductImages.FirstOrDefault()?.Path ?? "/Images/default.jpg")" alt="تصویر">
+                        </a>
+                        <div class="content-box">
+                            <h5><a href="product-details-1.html">@item.Product.Name</a></h5>
+                            <ul class="review">
+                                <li>
+                                    <i class="icon-star"></i>
+                                    <span>@item.Product.Popularity.ToString("0.##", CultureInfo.InvariantCulture)</span>&nbsp;
+                                    (125)
+                                </li>
+                                <li class="dot-icon">
+                                </li>
+                                <li>@item.Product.ServingTime دقیقه</li>
+                            </ul>
+                            <div class="total-qty">
+                                <span class="price">@item.Product.Price.ToString("N0") تومان</span>
+                                <div class="sec-qty">
+                                    <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
+                                    <input type="number" class="product-quantity" data-price="@item.Product.Price" value="@item.Count">
+                                    <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="tf-box-row style-2 qty mb-12">
+                    </li>
+                }
+                
+                @* <li class="tf-box-row style-2 qty mb-12">
                     <a href="product-details-2.html" class="img-box">
                         <img src="~/Images/food/coffea-17.jpg" alt="تصویر">
                     </a>
@@ -103,14 +108,14 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> *@
             </ul>
             <div class="mt-30 mb-30">
-                <p class="list-order line">
+@*                 <p class="list-order line">
                     جمع موقت: <span>10.48 تومان</span>
-                </p>
+                </p> *@
                 <p class="mt-15 list-order-total mb-26">
-                    کل: <span>12.18 تومان</span>
+                    کل: <span id="total-price"></span>
                 </p>
                 <a href="payment.html" class="tf-btn large primary">تسویه حساب</a>
             </div>
@@ -128,4 +133,38 @@
     <script type="text/javascript" src="~/Scripts/carousel.js"></script>
     <script type="text/javascript" src="~/Scripts/sidebar.js"></script>
     <script type="text/javascript" src="~/Scripts/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            function updateTotalPrice() {
+                let totalPrice = 0;
+                $(".product-quantity").each(function () {
+                    let price = parseInt($(this).data("price")) || 0; // گرفتن قیمت محصول
+                    let count = parseInt($(this).val()) || 0; // گرفتن تعداد محصول
+                    totalPrice += price * count;
+                });
+                $("#total-price").text(totalPrice.toLocaleString() + " تومان"); // نمایش قیمت کل
+            }
+
+            $(document).on("input", ".product-quantity", function () {
+                updateTotalPrice();
+            });
+
+            $(document).on("click", ".plus-btn, .minus-btn", function () {
+                let input = $(this).siblings("input.product-quantity");
+                let value = parseInt(input.val()) || 0;
+
+                if ($(this).hasClass("plus-btn")) {
+                    input.val(value);
+                } else if ($(this).hasClass("minus-btn") && value > 0) {
+                    input.val(value);
+                }
+
+                input.trigger("input");
+            });
+
+            updateTotalPrice(); 
+        });
+
+    </script>
 </body>

@@ -53,6 +53,11 @@ namespace NoushGah.Business.Services
             return await basketRepository.GetBasketByUserId(userId);
         }
 
+        public async Task<List<BasketItemWrapper>> GetBasketItems(string userId)
+        {
+            return await basketRepository.GetBasketItems(userId);
+        }
+
         public async Task RemoveItemFromBasket(BasketItemWrapper item, string userId)
         {
             await basketRepository.RemoveItemFromBasket(item, userId);

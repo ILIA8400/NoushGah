@@ -18,5 +18,7 @@ namespace NoushGah.Business.Interfaces
         Task AddItemToBasket(BasketItemWrapper item, string userId);
         Task AddItemsToBasket(List<BasketItemWrapper> basketItems, string userId);
         Task RemoveItemFromBasket(BasketItemWrapper item, string userId);
+        Task<List<BasketItemWrapper>> GetBasketItems(string userId);
+
     }
 }

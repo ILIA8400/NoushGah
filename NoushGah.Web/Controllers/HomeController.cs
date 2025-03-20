@@ -6,16 +6,20 @@ namespace NoushGah.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IProductBiz productBiz;
+        private readonly ISignInBiz signInBiz;
 
-        public HomeController(IProductBiz productBiz)
+        public HomeController(IProductBiz productBiz, ISignInBiz signInBiz)
         {
             this.productBiz = productBiz;
+            this.signInBiz = signInBiz;
         }
 
         // صحفه اصلی
         public async Task<IActionResult> Index()
         {
-            ViewBag.Title = "خانه";
+            // فعلا تا وقتی که لاگین درست بشه با اینا لاگین میکنیم
+            //await signInBiz.SignUp("09104566765");
+            //await signInBiz.Login("09104566765");
             var model = await productBiz.GetHomeIndexDataAsync();
             return View(model);
         }

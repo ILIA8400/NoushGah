@@ -165,6 +165,43 @@ namespace NoushGah.Repositories.Repository
             return ToWrapper(model);
         }
 
+        public async Task<List<BasketItemWrapper>> GetBasketItems(string userId)
+        {
+            var basket = await noushGahDbContext.Baskets.SingleOrDefaultAsync(x => x.UserId == userId);
+
+            if (basket == null) throw new NullReferenceException();
+
+            var items = await noushGahDbContext.BasketItems.Where(i => i.BasketId == basket.Id)
+            .Include(x => x.Product).ThenInclude(x => x.ProductImages)
+            .Select(x => new BasketItemWrapper
+            {
+                BasketId = basket.Id,
+                Count = x.Count,
+                ProductId = x.ProductId,
+                Product = new ProductWrapper()
+                {
+                    Id = x.Product.Id,
+                    CategoryId = x.Product.CategoryId,
+                    Description = x.Product.Description,
+                    Details = x.Product.Details,
+                    IsSpecialOffer = x.Product.IsSpecialOffer,
+                    Name = x.Product.Name,
+                    Popularity = x.Product.Popularity,
+                    Price = x.Product.Price,
+                    ProductImages = x.Product.ProductImages.Select(c => new ProductImageWrapper
+                    {
+                        Path = c.Path,
+                    }).ToList(),
+                    ServingTime = x.Product.ServingTime
+                }
+            })
+            .ToListAsync();
+
+            if (items == null) throw new NullReferenceException();
+
+            return items;
+        }
+
         public async Task RemoveItemFromBasket(BasketItemWrapper item, string userId)
         {
             var existingItem = await noushGahDbContext.BasketItems
@@ -188,6 +225,7 @@ namespace NoushGah.Repositories.Repository
 
             await noushGahDbContext.SaveChangesAsync();
         }
+
 
 
         public async Task UpdateBasket(BasketWrapper basket)

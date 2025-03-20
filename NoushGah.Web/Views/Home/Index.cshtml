@@ -2,7 +2,9 @@
 @using System.Globalization
 @model IndexWrapper
 
-
+@{
+    ViewBag.Title = "خانه";
+}
 
 
 
@@ -888,7 +890,7 @@
                 },
                 dataType: "json",
                 success: function (response) {
-                    //console.log(response)
+                    window.alert(response.message);
                 }
             });
         }

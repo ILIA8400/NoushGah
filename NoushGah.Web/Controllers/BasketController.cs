@@ -18,9 +18,10 @@ namespace NoushGah.Web.Controllers
         }
 
         // نمایش سبد خرید
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await basketBiz.GetBasketItems(GetUserId());
+            return View(model);
         }
 
         [HttpPost]
