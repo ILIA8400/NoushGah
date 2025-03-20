@@ -15,7 +15,6 @@ namespace NoushGah.DataAccess.IdentityModel
 
         #region Navigations
         public List<Invoice> Invoices { get; set; }
-        public Basket Basket { get; set; } 
         #endregion
     }
 }
