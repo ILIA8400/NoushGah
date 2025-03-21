@@ -279,7 +279,7 @@
     otpInput();
     checkRadio();
     rangeSlider();
-    btnQuantity();
+    //btnQuantity();
     pressHeart();
     clearAll();
     clearItem();

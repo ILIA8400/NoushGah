@@ -84,11 +84,24 @@ namespace NoushGah.Web.Controllers
             }
         }
 
-        [HttpPost]
         public async Task<IActionResult> ConfirmedBasket(int basketId)
         {
             await basketBiz.ConfirmedBasket(basketId);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetBasket(int basketId)
+        {
+            try
+            {
+                await basketBiz.ResetBasket(basketId);
+                return Json(new { success = true, message = "" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "مشکلی به وجود اومده" });
+            }
         }
 
         private string? GetUserId()

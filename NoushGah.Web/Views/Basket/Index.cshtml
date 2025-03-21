@@ -54,9 +54,9 @@
                                 <div class="total-qty">
                                     <span class="price">@item.Product.Price.ToString("N0") تومان</span>
                                     <div class="sec-qty">
-                                        <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
-                                        <input type="number" class="product-quantity" data-price="@item.Product.Price" value="@item.Count">
-                                        <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
+                                        <span class="btn-quantity minus-btn" data-productId="@item.Product.Id"><i class="icon-minus"></i></span>
+                                        <input type="number" class="product-quantity" data-price="@item.Product.Price" value="@item.Count" readonly>
+                                        <span class="btn-quantity active plus-btn" data-productId="@item.Product.Id"><i class="icon-plus"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,13 @@
                 <p class="mt-15 list-order-total mb-26">
                     کل: <span id="total-price"></span>
                 </p>
-                <a onclick="ConfirmedBasket(@(Model != null && Model.Any() ? Model.First().BasketId : 0))" class="tf-btn large primary">تسویه حساب</a>
+                @if (Model != null && Model.Any()){
+                    <a asp-controller="Basket" asp-action="ConfirmedBasket" asp-route-basketId="@Model.First().BasketId" class="tf-btn large primary">تسویه حساب</a>
+                }
+                else{
+                    <a class="tf-btn large primary" style="opacity:30%; user-select:none; pointer-events:none;">تسویه حساب</a>
+                }
+                
             </div>
         </div>
     </div>
@@ -87,10 +93,42 @@
     <script type="text/javascript" src="~/Scripts/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="~/Scripts/carousel.js"></script>
     <script type="text/javascript" src="~/Scripts/sidebar.js"></script>
-    <script type="text/javascript" src="~/Scripts/main.js"></script>
+    <script type="text/javascript" asp-append-version="true" src="~/Scripts/main.js"></script>
 
     <script>
+
+        function AddItemToBasket(productId){
+            $.ajax({
+                type: "post",
+                url: "/Basket/AddItemToBasket",
+                data: {
+                    Count: 1,
+                    ProductId : productId
+                },
+                dataType: "json",
+                success: function (response) {
+                    //window.alert(response.message);
+                }
+            });
+        }
+
+        function RemoveItemFromBasket(productId){
+            $.ajax({
+                type: "post",
+                url: "/Basket/RemoveItemFromBasket",
+                data: {
+                    Count: 1,
+                    ProductId : productId
+                },
+                dataType: "json",
+                success: function (response) {
+                    //window.alert(response.message);
+                }
+            });
+        }
+
         $(document).ready(function () {
+
             function updateTotalPrice() {
                 let totalPrice = 0;
                 $(".product-quantity").each(function () {
@@ -108,36 +146,31 @@
             $(document).on("click", ".plus-btn, .minus-btn", function () {
                 let input = $(this).siblings("input.product-quantity");
                 let value = parseInt(input.val()) || 0;
+                let productId = $(this).data('productid');
 
                 if ($(this).hasClass("plus-btn")) {
-                    input.val(value);
+                    input.val(value + 1);
+                    AddItemToBasket(productId);
                 } else if ($(this).hasClass("minus-btn") && value > 0) {
-                    input.val(value);
+                    debugger;
+                    if (value === 1) {
+                        if (confirm("آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟")) {
+                            RemoveItemFromBasket(productId);
+                            $(this).closest(".tf-box-row").remove();
+                            updateTotalPrice();
+                        }
+                    } else {
+                        input.val(value - 1);
+                        RemoveItemFromBasket(productId);
+                    }
                 }
 
                 input.trigger("input");
             });
 
+
             updateTotalPrice(); 
         });
-
-        function ConfirmedBasket(basketId){
-            if(basketId > 0){
-                $.ajax({
-                    type: "post",
-                    url: `/Basket/ConfirmedBasket?basketId=${basketId}`,
-                    data: "",
-                    dataType: "json",
-                    success: function (response) {
-                        alert("سبد خرید تایید شد لطفا صبور باشید")
-                    }
-                });
-            }
-            else{
-                alert("سبد خرید شما خالی است")
-            }
-
-        }
 
     </script>
 </body>

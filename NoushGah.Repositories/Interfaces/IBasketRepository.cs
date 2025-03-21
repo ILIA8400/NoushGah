@@ -20,6 +20,6 @@ namespace NoushGah.Repositories.Interfaces
         Task AddItemsToBasket(List<BasketItemWrapper> basketItems, string userId);
         Task RemoveItemFromBasket(BasketItemWrapper item, string userId);
         Task ConfirmedBasket(int basketId);
-
+        Task ResetBasket(int basketId);
     }
 }
