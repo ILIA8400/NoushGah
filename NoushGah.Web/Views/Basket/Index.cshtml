@@ -27,97 +27,52 @@
     </div>
     <div class="app pt-80 pb-70">
         <div class="tf-container">
+            @if(!Model.Any()){
+                <p class="fw-bold text-danger h6">سبد خرید شما خالی است .</p>
+            }
             <ul>
-                @foreach(var item in Model){
-                    <li class="tf-box-row style-2 qty mb-12">
-                        <a href="product-details-1.html" class="img-box">
-                            <img src="@Url.Content(item.Product.ProductImages.FirstOrDefault()?.Path ?? "/Images/default.jpg")" alt="تصویر">
-                        </a>
-                        <div class="content-box">
-                            <h5><a href="product-details-1.html">@item.Product.Name</a></h5>
-                            <ul class="review">
-                                <li>
-                                    <i class="icon-star"></i>
-                                    <span>@item.Product.Popularity.ToString("0.##", CultureInfo.InvariantCulture)</span>&nbsp;
-                                    (125)
-                                </li>
-                                <li class="dot-icon">
-                                </li>
-                                <li>@item.Product.ServingTime دقیقه</li>
-                            </ul>
-                            <div class="total-qty">
-                                <span class="price">@item.Product.Price.ToString("N0") تومان</span>
-                                <div class="sec-qty">
-                                    <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
-                                    <input type="number" class="product-quantity" data-price="@item.Product.Price" value="@item.Count">
-                                    <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <li class="tf-box-row style-2 qty mb-12">
+                            <a href="product-details-1.html" class="img-box">
+                                <img src="@Url.Content(item.Product.ProductImages.FirstOrDefault()?.Path ?? "/Images/default.jpg")" alt="تصویر">
+                            </a>
+                            <div class="content-box">
+                                <h5><a href="product-details-1.html">@item.Product.Name</a></h5>
+                                <ul class="review">
+                                    <li>
+                                        <i class="icon-star"></i>
+                                        <span>@item.Product.Popularity.ToString("0.##", CultureInfo.InvariantCulture)</span>&nbsp;
+                                        (125)
+                                    </li>
+                                    <li class="dot-icon">
+                                    </li>
+                                    <li>@item.Product.ServingTime دقیقه</li>
+                                </ul>
+                                <div class="total-qty">
+                                    <span class="price">@item.Product.Price.ToString("N0") تومان</span>
+                                    <div class="sec-qty">
+                                        <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
+                                        <input type="number" class="product-quantity" data-price="@item.Product.Price" value="@item.Count">
+                                        <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
                 }
                 
-                @* <li class="tf-box-row style-2 qty mb-12">
-                    <a href="product-details-2.html" class="img-box">
-                        <img src="~/Images/food/coffea-17.jpg" alt="تصویر">
-                    </a>
-                    <div class="content-box">
-                        <h5><a href="product-details-2.html">قهوه شکلاتی یخ‌زده</a></h5>
-                        <ul class="review">
-                            <li>
-                                <i class="icon-star"></i>
-                                <span>4.8</span>&nbsp;
-                                (125)
-                            </li>
-                            <li class="dot-icon">
-                            </li>
-                            <li>16 دقیقه</li>
-                        </ul>
-                        <div class="total-qty">
-                            <span class="price">10.48 تومان</span>
-                            <div class="sec-qty">
-                                <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
-                                <input type="number" name="number" value="1">
-                                <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="tf-box-row style-2 qty mb-30">
-                    <a href="product-details-3.html" class="img-box">
-                        <img src="~/Images/food/coffea-18.jpg" alt="تصویر">
-                    </a>
-                    <div class="content-box">
-                        <h5><a href="product-details-3.html">قهوه شکلاتی یخ‌زده</a></h5>
-                        <ul class="review">
-                            <li>
-                                <i class="icon-star"></i>
-                                <span>4.8</span>&nbsp;
-                                (125)
-                            </li>
-                            <li class="dot-icon">
-                            </li>
-                            <li>16 دقیقه</li>
-                        </ul>
-                        <div class="total-qty">
-                            <span class="price">10.48 تومان</span>
-                            <div class="sec-qty">
-                                <span class="btn-quantity minus-btn"><i class="icon-minus"></i></span>
-                                <input type="number" name="number" value="1">
-                                <span class="btn-quantity active plus-btn"><i class="icon-plus"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </li> *@
             </ul>
             <div class="mt-30 mb-30">
-@*                 <p class="list-order line">
+                @*<p class="list-order line">
                     جمع موقت: <span>10.48 تومان</span>
                 </p> *@
                 <p class="mt-15 list-order-total mb-26">
                     کل: <span id="total-price"></span>
                 </p>
-                <a href="payment.html" class="tf-btn large primary">تسویه حساب</a>
+                <a onclick="ConfirmedBasket(@(Model != null && Model.Any() ? Model.First().BasketId : 0))" class="tf-btn large primary">تسویه حساب</a>
             </div>
         </div>
     </div>
@@ -165,6 +120,24 @@
 
             updateTotalPrice(); 
         });
+
+        function ConfirmedBasket(basketId){
+            if(basketId > 0){
+                $.ajax({
+                    type: "post",
+                    url: `/Basket/ConfirmedBasket?basketId=${basketId}`,
+                    data: "",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("سبد خرید تایید شد لطفا صبور باشید")
+                    }
+                });
+            }
+            else{
+                alert("سبد خرید شما خالی است")
+            }
+
+        }
 
     </script>
 </body>

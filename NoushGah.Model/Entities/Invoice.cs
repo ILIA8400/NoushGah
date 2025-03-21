@@ -13,6 +13,7 @@ namespace NoushGah.Model.Entities
 
         #region Navigations
 
+        public List<InvoiceItem> InvoiceItems { get; set; }
 
         #endregion
     }

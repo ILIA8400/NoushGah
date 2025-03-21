@@ -75,8 +75,14 @@ namespace NoushGah.Repositories.Repository
 
         public async Task AddItemToBasket(BasketItemWrapper item, string userId)
         {
-            var basketId = await noushGahDbContext.Baskets.Where(x => x.UserId == userId).Select(v => v.Id).SingleOrDefaultAsync();
-            item.BasketId = basketId;
+            var basket = await noushGahDbContext.Baskets.Where(x => x.UserId == userId).SingleOrDefaultAsync();
+
+            if (basket.BasketStatus == Model.Enums.BasketStatusEnum.Confirmed)
+            {
+                throw new Exception("شما یک سفارش در حال اماده سازی دارید لطفا تا اماده شدن ان صبر کنید سپس دوباره امتحان کنید");
+            }
+
+            item.BasketId = basket.Id;
 
             var existingItem = await noushGahDbContext.BasketItems
                 .FirstOrDefaultAsync(b => b.BasketId == item.BasketId && b.ProductId == item.ProductId && !b.IsDeleted);
@@ -115,6 +121,16 @@ namespace NoushGah.Repositories.Repository
             var items = await noushGahDbContext.BasketItems.Where(x => x.BasketId == basket.Id).ToListAsync();
             noushGahDbContext.RemoveRange(items);
 
+            await noushGahDbContext.SaveChangesAsync();
+        }
+
+        public async Task ConfirmedBasket(int basketId)
+        {
+            var basket = await noushGahDbContext.Baskets.SingleOrDefaultAsync(x => x.Id == basketId);
+
+            if (basket == null) throw new NullReferenceException();
+
+            basket.BasketStatus = Model.Enums.BasketStatusEnum.Confirmed;
             await noushGahDbContext.SaveChangesAsync();
         }
 
@@ -171,6 +187,8 @@ namespace NoushGah.Repositories.Repository
 
             if (basket == null) throw new NullReferenceException();
 
+            if (basket.BasketStatus == Model.Enums.BasketStatusEnum.Confirmed) return new List<BasketItemWrapper>();
+
             var items = await noushGahDbContext.BasketItems.Where(i => i.BasketId == basket.Id)
             .Include(x => x.Product).ThenInclude(x => x.ProductImages)
             .Select(x => new BasketItemWrapper
@@ -196,8 +214,6 @@ namespace NoushGah.Repositories.Repository
                 }
             })
             .ToListAsync();
-
-            if (items == null) throw new NullReferenceException();
 
             return items;
         }

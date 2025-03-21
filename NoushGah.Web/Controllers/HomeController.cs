@@ -19,7 +19,7 @@ namespace NoushGah.Web.Controllers
         {
             // فعلا تا وقتی که لاگین درست بشه با اینا لاگین میکنیم
             //await signInBiz.SignUp("09104566765");
-            //await signInBiz.Login("09104566765");
+            await signInBiz.Login("09104566765");
             var model = await productBiz.GetHomeIndexDataAsync();
             return View(model);
         }

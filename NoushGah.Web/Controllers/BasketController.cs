@@ -84,6 +84,12 @@ namespace NoushGah.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ConfirmedBasket(int basketId)
+        {
+            await basketBiz.ConfirmedBasket(basketId);
+            return RedirectToAction("Index","Home");
+        }
 
         private string? GetUserId()
         {

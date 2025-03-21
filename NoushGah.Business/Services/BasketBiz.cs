@@ -33,6 +33,11 @@ namespace NoushGah.Business.Services
             await basketRepository.ClearBasket(userId);
         }
 
+        public async Task ConfirmedBasket(int basketId)
+        {
+            await basketRepository.ConfirmedBasket(basketId);
+        }
+
         public async Task<BasketWrapper> CreateBasket(BasketWrapper basket)
         {
             return await basketRepository.CreateBasket(basket);
